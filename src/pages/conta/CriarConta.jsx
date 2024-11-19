@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Cadastro() {
   const [formData, setFormData] = useState({
@@ -6,6 +7,7 @@ function Cadastro() {
     email: '',
     password: '',
   });
+  const navigate = useNavigate(); // Hook para navegação
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +29,7 @@ function Cadastro() {
       const data = await response.json();
       if (response.ok) {
         alert(data.message);
+        navigate('/login'); // Redireciona para a página de login
       } else {
         alert(data.error);
       }

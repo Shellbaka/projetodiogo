@@ -1,9 +1,12 @@
 import express from "express";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
+import cors from "cors";
 
 const app = express();
 const PORT = 8000;
+
+app.use(cors());
 
 // Configuração para processar JSON no corpo da requisição
 app.use(express.json());

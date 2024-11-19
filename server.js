@@ -54,6 +54,31 @@ app.post("/cadastro", async (req, res) => {
   }
 });
 
+app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "Email e senha são obrigatórios!" });
+  }
+
+  try {
+    const db = await openDb();
+    const user = await db.get(
+      `SELECT * FROM usuario WHERE email = ? AND password = ?`,
+      [email, password]
+    );
+
+    if (user) {
+      res.status(200).json({ message: "Login bem-sucedido!" });
+    } else {
+      res.status(401).json({ error: "Email ou senha inválidos!" });
+    }
+  } catch (error) {
+    console.error("Erro ao realizar login:", error);
+    res.status(500).json({ error: "Erro interno do servidor." });
+  }
+});
+
 // Iniciar o servidor
 app.listen(PORT, async () => {
   await createTable();

@@ -1,14 +1,37 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importar para navegação
 import './Login.css'; 
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate(); // Hook para navegação
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Lógica para autenticaçao de usuário
-    console.log("Email:", email, "Senha:", password);
+
+    try {
+      // Realiza a requisição para o backend para autenticar o usuário
+      const response = await fetch('http://localhost:8000/login', { // Criar o endpoint /login
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('Login realizado com sucesso!');
+        navigate('/body'); // Redireciona para a página principal (Body.jsx)
+      } else {
+        alert(data.error);
+      }
+    } catch (error) {
+      console.error('Erro ao tentar fazer login:', error);
+      alert('Erro ao tentar fazer login.');
+    }
   };
 
   return (

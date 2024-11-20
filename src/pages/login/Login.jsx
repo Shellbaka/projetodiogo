@@ -12,7 +12,7 @@ export default function Login() {
 
     try {
       // Realiza a requisição para o backend para autenticar o usuário
-      const response = await fetch('http://localhost:8000/login', { // Criar o endpoint /login
+      const response = await fetch('http://localhost:8000/Login', { // Criar o endpoint /login
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,7 +24,7 @@ export default function Login() {
 
       if (response.ok) {
         alert('Login realizado com sucesso!');
-        navigate('/body'); // Redireciona para a página principal (Body.jsx)
+        navigate('/inicio/'); // Redireciona para a página principal (Body.jsx)
       } else {
         alert(data.error);
       }

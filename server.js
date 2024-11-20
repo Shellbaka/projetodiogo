@@ -54,7 +54,7 @@ app.post("/cadastro", async (req, res) => {
   }
 });
 
-app.post("/login", async (req, res) => {
+app.post("/Login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {

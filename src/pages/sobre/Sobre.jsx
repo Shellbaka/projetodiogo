@@ -3,23 +3,50 @@ import './Sobre.css';
 
 export default function Sobre() {
     return (
-      <div className='Sobre'>
+        <div className='sobre-container'>
+            {/* Seção principal com título */}
+            <section className='sobre-header'>
+                <div className='text'>
+                    <h1>Quem Somos</h1>
+                    <p>
+                        A Reciclub conecta pessoas e empresas em uma missão sustentável, promovendo práticas responsáveis
+                        e recompensando hábitos que ajudam a cuidar do meio ambiente.
+                    </p>
+                </div>
+                <div className='image'>
+                    <img src='fotos/teste2.jpg' alt='Equipe da Reciclub' />
+                </div>
+            </section>
 
-        <h2><b>Quem somos nós?</b></h2>
+            {/* Seção de missão */}
+            <section className='sobre-missao'>
+                <div className='image'>
+                    <img src='https://via.placeholder.com/400x250' alt='Ponto de coleta sustentável' />
+                </div>
+                <div className='text'>
+                    <h2>Nossa Missão</h2>
+                    <p>
+                        Incentivar milhões de pessoas e empresas a adotarem práticas de sustentabilidade, 
+                        transformando resíduos em oportunidades. Nosso objetivo é construir um futuro mais limpo, 
+                        recompensando escolhas conscientes.
+                    </p>
+                </div>
+            </section>
 
-        <p>A Reciclub é uma aplicação que promove parcerias com mercados e lojas para que possam coletar materiais
-        recicláveis levados pelos clientes cadastrados no app do Reciclube em pontos de coleta facilmente encontrados.
-        O objetivo é que os clientes dos mercados, lojas e afins se cadastrem no App gerando assim para os mesmos uma
-        pontuação para uma certa quantidade de Itens recicláveis trazidos até os pontos de coletas das lojas parceiras.</p>
-
-        <p>Os pontos acumulados serão trocados por premiações como cupons de descontos em lojas parceiras, gift cards, vouchers,
-        etc. A quantidade de pontos gerados será definida pelo tipo do lixo, como uma garrafa pet, uma vasilha ou latinhas, 
-        ajudando assim a dar um novo destino ao lixo do ambiente urbano e incentivando boas práticas de sustentabilidade.</p>
-
-        <p>Além disso, as empresas parceiras que se destacarem em suas práticas de reciclagem poderão participar do Ranking de 
-        Parceiros Sustentáveis, onde serão reconhecidas pela sua contribuição ao meio ambiente. Este reconhecimento pode atrair 
-        consumidores mais conscientes e melhorar a imagem da empresa, criando um impacto positivo sem investimento adicional.</p>
-
-      </div>
+            {/* Seção da história */}
+            <section className='sobre-historia'>
+                <div className='text'>
+                    <h2>Nossa História</h2>
+                    <p>
+                        Desde 2023, ajudamos clientes e empresas a dar um destino sustentável aos materiais recicláveis. 
+                        Nosso time acredita que pequenas ações podem ter grandes impactos, e trabalhamos para simplificar 
+                        e recompensar essas práticas.
+                    </p>
+                </div>
+                <div className='image'>
+                    <img src='https://via.placeholder.com/400x250' alt='História da Reciclub' />
+                </div>
+            </section>
+        </div>
     );
-  }
+}

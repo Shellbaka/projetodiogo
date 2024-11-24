@@ -1,39 +1,38 @@
 import express from "express";
-import sqlite3 from "sqlite3";
-import { open } from "sqlite";
+import mysql from "mysql2/promise";
 import cors from "cors";
 
 const app = express();
 const PORT = 8000;
 
+// Middleware
 app.use(cors());
-
-// Configuração para processar JSON no corpo da requisição
 app.use(express.json());
 
-// Função para abrir o banco de dados
-async function openDb() {
-  return open({
-    filename: "./Banco.db",
-    driver: sqlite3.Database,
-  });
-}
+// Configuração de conexão com o banco de dados MySQL
+const dbConfig = {
+  host: "localhost", // Altere se necessário
+  user: "root", // Substitua pelo seu usuário MySQL
+  password: "root", // Substitua pela sua senha MySQL
+  database: "meu_projeto", // Substitua pelo nome do seu banco de dados
+};
 
-// Criar a tabela (se ainda não existir)
-async function createTable() {
-  const db = await openDb();
-  await db.run(`
+// Função para inicializar a tabela de usuários
+async function initializeDb() {
+  const connection = await mysql.createConnection(dbConfig);
+  await connection.query(`
     CREATE TABLE IF NOT EXISTS usuario (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT,
-      email VARCHAR,
-      password VARCHAR
-    )
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      username VARCHAR(255) NOT NULL,
+      email VARCHAR(255) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL
+    );
   `);
-  console.log("Tabela criada/verificada com sucesso!");
+  console.log("Tabela 'usuario' criada/verificada com sucesso!");
+  connection.end();
 }
 
-// Endpoint para cadastro
+// Rota para cadastro de usuários
 app.post("/cadastro", async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -42,18 +41,20 @@ app.post("/cadastro", async (req, res) => {
   }
 
   try {
-    const db = await openDb();
-    await db.run(
+    const connection = await mysql.createConnection(dbConfig);
+    await connection.query(
       `INSERT INTO usuario (username, email, password) VALUES (?, ?, ?)`,
       [username, email, password]
     );
+    connection.end();
     res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
   } catch (error) {
     console.error("Erro ao cadastrar usuário:", error);
-    res.status(500).json({ error: "Erro interno do servidor." });
+    res.status(500).json({ error: "Erro ao cadastrar o usuário." });
   }
 });
 
+// Rota para login de usuários
 app.post("/Login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -62,13 +63,14 @@ app.post("/Login", async (req, res) => {
   }
 
   try {
-    const db = await openDb();
-    const user = await db.get(
+    const connection = await mysql.createConnection(dbConfig);
+    const [rows] = await connection.query(
       `SELECT * FROM usuario WHERE email = ? AND password = ?`,
       [email, password]
     );
+    connection.end();
 
-    if (user) {
+    if (rows.length > 0) {
       res.status(200).json({ message: "Login bem-sucedido!" });
     } else {
       res.status(401).json({ error: "Email ou senha inválidos!" });
@@ -81,6 +83,6 @@ app.post("/Login", async (req, res) => {
 
 // Iniciar o servidor
 app.listen(PORT, async () => {
-  await createTable();
+  await initializeDb();
   console.log(`Servidor rodando em http://localhost:${PORT}`);
 });

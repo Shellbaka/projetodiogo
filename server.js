@@ -5,23 +5,21 @@ import cors from "cors";
 const app = express();
 const PORT = 8000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Configuração do banco de dados
 const dbConfig = {
   host: "localhost",
   user: "root",
-  password: "root", // Altere para sua senha do MySQL
-  database: "meu_projeto", // Nome do seu banco de dados
+  password: "root",
+  database: "meu_projeto",
 };
 
-// Função para inicializar o banco de dados (criar tabelas se não existirem)
+// Função de inicialização do banco de dados
 async function initializeDb() {
   const connection = await mysql.createConnection(dbConfig);
   
-  // Criando a tabela 'usuario' se não existir
+  // Criando a tabela de 'usuario'
   await connection.query(`
     CREATE TABLE IF NOT EXISTS usuario (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,7 +29,7 @@ async function initializeDb() {
     );
   `);
   
-  // Criando a tabela 'mercado' se não existir
+  // Criando a tabela de 'mercado'
   await connection.query(`
     CREATE TABLE IF NOT EXISTS mercado (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -45,26 +43,27 @@ async function initializeDb() {
   connection.end();
 }
 
-// Rota para cadastro de usuários e mercados
+// Rota de cadastro
 app.post("/cadastro", async (req, res) => {
   const { username, email, password, tipo } = req.body;
 
+  // Validação de dados
   if (!username || !email || !password || !tipo) {
     return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
   }
 
   try {
     const connection = await mysql.createConnection(dbConfig);
-    
-    // Cadastro de 'usuario'
+
+    // Inserção nas tabelas de acordo com o tipo
     if (tipo === "usuario") {
+      // Inserir usuário na tabela 'usuario'
       await connection.query(
         `INSERT INTO usuario (username, email, password) VALUES (?, ?, ?)`,
         [username, email, password]
       );
-    }
-    // Cadastro de 'mercado'
-    else if (tipo === "mercado") {
+    } else if (tipo === "mercado") {
+      // Inserir mercado na tabela 'mercado'
       await connection.query(
         `INSERT INTO mercado (nome, email, senha) VALUES (?, ?, ?)`,
         [username, email, password]
@@ -72,6 +71,7 @@ app.post("/cadastro", async (req, res) => {
     } else {
       return res.status(400).json({ error: "Tipo de conta inválido!" });
     }
+
     connection.end();
     res.status(201).json({ message: "Cadastro realizado com sucesso!" });
   } catch (error) {
@@ -80,7 +80,7 @@ app.post("/cadastro", async (req, res) => {
   }
 });
 
-// Rota para login de usuários e mercados
+// Rota de login
 app.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -91,7 +91,7 @@ app.post("/login", async (req, res) => {
   try {
     const connection = await mysql.createConnection(dbConfig);
     
-    // Verificando login de usuário
+    // Verificar login de usuário
     let [rows] = await connection.query(
       `SELECT * FROM usuario WHERE email = ? AND password = ?`,
       [email, password]
@@ -101,7 +101,7 @@ app.post("/login", async (req, res) => {
       return res.status(200).json({ tipo: "usuario", nome: rows[0].username });
     }
 
-    // Verificando login de mercado
+    // Verificar login de mercado
     [rows] = await connection.query(
       `SELECT * FROM mercado WHERE email = ? AND senha = ?`,
       [email, password]
@@ -119,7 +119,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Inicializando o servidor e o banco de dados
+// Inicializando o servidor e banco de dados
 app.listen(PORT, async () => {
   await initializeDb();
   console.log(`Servidor rodando em http://localhost:${PORT}`);

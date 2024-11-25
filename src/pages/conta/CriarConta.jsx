@@ -12,13 +12,25 @@ function Cadastro() {
 
   const navigate = useNavigate();
 
+  // Função para alterar o estado conforme o botão clicado
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Função para atualizar o tipo (usuario ou mercado)
+  const handleTipoChange = (tipo) => {
+    setFormData((prev) => ({ ...prev, tipo }));
+  };
+
+  // Envio do formulário
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Verifique se o tipo foi selecionado corretamente
+    if (!formData.tipo) {
+      return alert('Por favor, selecione um tipo de conta (Usuário ou Mercado).');
+    }
 
     console.log("Form Data:", formData); // Verifique o conteúdo de formData
 
@@ -32,7 +44,7 @@ function Cadastro() {
       const data = await response.json();
       if (response.ok) {
         alert(data.message);
-        navigate('/inicio'); // Navega para a página inicial após sucesso
+        navigate('/login'); // Redireciona para login após cadastro
       } else {
         alert(data.error || 'Erro ao cadastrar');
       }
@@ -86,14 +98,14 @@ function Cadastro() {
           <button
             type="button"
             className={`tipo-button ${formData.tipo === 'usuario' ? 'selected' : ''}`}
-            onClick={() => setFormData({ ...formData, tipo: 'usuario' })}
+            onClick={() => handleTipoChange('usuario')}
           >
             Usuário
           </button>
           <button
             type="button"
             className={`tipo-button ${formData.tipo === 'mercado' ? 'selected' : ''}`}
-            onClick={() => setFormData({ ...formData, tipo: 'mercado' })}
+            onClick={() => handleTipoChange('mercado')}
           >
             Mercado
           </button>

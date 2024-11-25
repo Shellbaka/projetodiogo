@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Certifique-se de que o CSS tenha o mesmo nome ou seja importado corretamente
+import './Login.css';
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  const navigate = useNavigate(); // Hook para navegação
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,16 +20,15 @@ function Login() {
     try {
       const response = await fetch('http://localhost:8000/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
       if (response.ok) {
-        alert(data.message);
-        navigate('/inicio'); // Redireciona para a página principal
+        alert('Login bem-sucedido!');
+        localStorage.setItem('user', JSON.stringify({ nome: data.nome, tipo: data.tipo }));
+        navigate('/inicio');
       } else {
         alert(data.error);
       }

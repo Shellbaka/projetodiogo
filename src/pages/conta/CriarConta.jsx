@@ -7,8 +7,10 @@ function Cadastro() {
     username: '',
     email: '',
     password: '',
+    tipo: '', // Tipo: Usuário ou Mercado
   });
-  const navigate = useNavigate(); // Hook para navegação
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,21 +20,21 @@ function Cadastro() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("Form Data:", formData); // Verifique o conteúdo de formData
+
     try {
       const response = await fetch('http://localhost:8000/cadastro', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
       const data = await response.json();
       if (response.ok) {
         alert(data.message);
-        navigate('/login'); // Redireciona para a página de login
+        navigate('/inicio'); // Navega para a página inicial após sucesso
       } else {
-        alert(data.error);
+        alert(data.error || 'Erro ao cadastrar');
       }
     } catch (error) {
       console.error('Erro ao enviar o formulário:', error);
@@ -41,11 +43,10 @@ function Cadastro() {
   };
 
   return (
-
     <div className="login-box">
       <div className="header">
-        <h2>Criar uma nova conta</h2>
-        <p>Sua conta em poucos passos.</p>
+        <h2>Cadastrar</h2>
+        <p>Crie sua conta</p>
         <div className="separator"></div>
       </div>
       <form onSubmit={handleSubmit}>
@@ -53,7 +54,7 @@ function Cadastro() {
           <input
             type="text"
             name="username"
-            placeholder="Nome de Usuário"
+            placeholder="Nome"
             value={formData.username}
             onChange={handleChange}
             required
@@ -79,13 +80,31 @@ function Cadastro() {
             required
           />
         </div>
+
+        {/* Botões de tipo (Usuário ou Mercado) */}
+        <div className="tipo-container">
+          <button
+            type="button"
+            className={`tipo-button ${formData.tipo === 'usuario' ? 'selected' : ''}`}
+            onClick={() => setFormData({ ...formData, tipo: 'usuario' })}
+          >
+            Usuário
+          </button>
+          <button
+            type="button"
+            className={`tipo-button ${formData.tipo === 'mercado' ? 'selected' : ''}`}
+            onClick={() => setFormData({ ...formData, tipo: 'mercado' })}
+          >
+            Mercado
+          </button>
+        </div>
+
         <div className="button-group">
-          <button type="submit">Cadastre-se</button>
+          <button type="submit">Cadastrar</button>
         </div>
       </form>
-      <p>Já tem uma conta? <a href="/login">Login</a></p>
+      <p>Já tem uma conta? <a href="/login">Faça login</a></p>
     </div>
-
   );
 }
 

@@ -1,4 +1,4 @@
-body{
+body {
   background-color: #F0F2F5;
 }
 
@@ -13,35 +13,33 @@ body{
   margin-top: 50px;
 }
 
-
 .header {
-  text-align: center; /* Centraliza o conteúdo */
-  margin-bottom: 20px; /* Espaço abaixo do header */
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .header h2 {
-  font-size: 24px; /* Tamanho do título */
-  font-weight: bold; /* Negrito no título */
-  color: #333; /* Cor do texto */
-  margin: 0; /* Remove margens padrão */
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
 }
 
 .header p {
-  font-size: 15px; /* Tamanho do subtítulo */
-  color: #666; /* Tom mais claro */
+  font-size: 15px;
+  color: #666;
   font-weight: 400;
-  margin: 5px 0 0; /* Espaçamento superior */
+  margin: 5px 0 0;
 }
 
 .separator {
-  height: 1px; /* Altura da linha */
-  background-color: #ccc; /* Cor da linha */
-  margin: 10px 0; /* Espaçamento acima e abaixo da linha */
-  width: 100%; /* Linha ocupa toda a largura do container */
-  border: none; /* Remove qualquer borda extra */
-  box-sizing: border-box; /* Garante que a linha use 100% da largura, incluindo margens e padding */
+  height: 1px;
+  background-color: #ccc;
+  margin: 10px 0;
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
 }
-
 
 .input-group {
   margin-bottom: 20px;
@@ -76,6 +74,7 @@ body{
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
+  margin: 8px;
 }
 
 .button-group button:hover {
@@ -95,4 +94,31 @@ p a {
 
 p a:hover {
   text-decoration: underline;
+}
+
+/* Estilo para os botões de seleção de tipo (usuário ou mercado) */
+.tipo-container {
+  display: flex;
+  justify-content: space-around; /* Ajuste aqui para separar os botões */
+  margin-bottom: 20px;
+}
+
+.tipo-button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.tipo-button:hover {
+  background-color: #f0f0f0;
+}
+
+.tipo-button.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
 }

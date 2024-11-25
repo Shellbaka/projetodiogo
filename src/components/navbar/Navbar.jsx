@@ -2,7 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
-export default function Navb() {
+export default function Navbar() {
+  const user = JSON.parse(localStorage.getItem('user'));
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -30,6 +32,14 @@ export default function Navb() {
               Login
             </NavLink>
           </li>
+          {/* Exibir informações do usuário ou mercado se estiver logado */}
+          {user && (
+            <li className="navbar-item">
+              <span className="navbar-link">
+                {user.tipo === 'usuario' ? `Usuário: ${user.nome}` : `Mercado: ${user.nome}`}
+              </span>
+            </li>
+          )}
         </ul>
       </div>
     </nav>

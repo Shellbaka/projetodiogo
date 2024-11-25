@@ -41,39 +41,51 @@ function Cadastro() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          required
-        />
+
+    <div className="login-box">
+      <div className="header">
+        <h2>Criar uma nova conta</h2>
+        <p>Sua conta em poucos passos.</p>
+        <div className="separator"></div>
       </div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div>
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <button type="submit">Cadastrar</button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <div className="input-group">
+          <input
+            type="text"
+            name="username"
+            placeholder="Nome de Usuário"
+            value={formData.username}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <input
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-group">
+          <input
+            type="password"
+            name="password"
+            placeholder="Senha"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="button-group">
+          <button type="submit">Cadastre-se</button>
+        </div>
+      </form>
+      <p>Já tem uma conta? <a href="/login">Login</a></p>
+    </div>
+
   );
 }
 

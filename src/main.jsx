@@ -5,7 +5,7 @@ import './index.css';
 
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
-import Body from './pages/body/Body.jsx';
+import Home from './pages/home/Home.jsx';
 import CriarConta from './pages/conta/CriarConta.jsx';
 import Login from './pages/login/Login.jsx';
 import Score from './pages/score/Score.jsx';
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/inicio",
-        element: <Body />,
+        element: <Home />,
       },
       {
         path: "/conta",

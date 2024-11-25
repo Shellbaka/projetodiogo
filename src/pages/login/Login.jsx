@@ -1,65 +1,79 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importar para navegação
-import './Login.css'; 
+import { useNavigate } from 'react-router-dom';
+import './Login.css'; // Certifique-se de que o CSS tenha o mesmo nome ou seja importado corretamente
 
-export default function Login() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function Login() {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
   const navigate = useNavigate(); // Hook para navegação
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
     try {
-      // Realiza a requisição para o backend para autenticar o usuário
-      const response = await fetch('http://localhost:8000/Login', { // Criar o endpoint /login
+      const response = await fetch('http://localhost:8000/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
-
       if (response.ok) {
-        alert('Login realizado com sucesso!');
-        navigate('/inicio/'); // Redireciona para a página principal (Body.jsx)
+        alert(data.message);
+        navigate('/inicio'); // Redireciona para a página principal
       } else {
         alert(data.error);
       }
     } catch (error) {
-      console.error('Erro ao tentar fazer login:', error);
-      alert('Erro ao tentar fazer login.');
+      console.error('Erro ao enviar o formulário:', error);
+      alert('Erro ao enviar o formulário.');
     }
   };
 
   return (
-    <div className="container">
-      <h2>Login</h2>
+    <div className="login-box">
+      <div className="header">
+        <h2>Fazer Login</h2>
+        <p>Conecte-se à sua conta</p>
+        <div className="separator"></div>
+      </div>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
+        <div className="input-group">
           <input
             type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="form-control"
+            name="email"
+            placeholder="E-mail"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Senha:</label>
+        <div className="input-group">
           <input
             type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="form-control"
+            name="password"
+            placeholder="Senha"
+            value={formData.password}
+            onChange={handleChange}
+            required
           />
         </div>
-        <button type="submit" className="btn btn-primary">Entrar</button>
+        <div className="button-group">
+          <button type="submit">Entrar</button>
+        </div>
       </form>
+      <p>Não tem uma conta? <a href="/criar-conta">Cadastre-se</a></p>
     </div>
   );
 }
+
+export default Login;

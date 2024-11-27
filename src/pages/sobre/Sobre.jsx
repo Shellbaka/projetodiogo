@@ -21,7 +21,7 @@ export default function Sobre() {
 
             <section className="sobre-missao">
                 <div className="image">
-                    <img src="fotos/ew.png" alt="Ponto de coleta sustentável" />
+                    <img src="fotos/borda2.png" alt="Ponto de coleta sustentável" />
                 </div>
                 <div className="text">
                     <h2>Nossa Missão</h2>
@@ -43,7 +43,7 @@ export default function Sobre() {
                     </p>
                 </div>
                 <div className="image">
-                    <img src="fotos/s.jpg" alt="História da Reciclub" />
+                    <img src="fotos/borda3.png" alt="História da Reciclub" />
                 </div>
             </section>
         </div>

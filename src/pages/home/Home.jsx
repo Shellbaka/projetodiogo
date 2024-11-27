@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -27,21 +26,21 @@ export default function Body() {
       <Slider {...sliderSettings}>
         <div>
           <img
-            src="fotos/carrossel1.jpg"
+            src="fotos/banner1.jpg"
             className="recycle-image"
             alt="Imagem Reciclube 1"
           />
         </div>
         <div>
           <img
-            src="fotos/carrossel2.jpg"
+            src="fotos/banner2.png"
             className="recycle-image2"
             alt="Imagem Reciclube 2"
           />
         </div>
         <div>
           <img
-            src="fotos/carrossel3.png"
+            src="fotos/banner3.jpg"
             className="recycle-image3"
             alt="Imagem Reciclube 3"
           />

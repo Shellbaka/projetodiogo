@@ -7,32 +7,32 @@ function Cadastro() {
     username: '',
     email: '',
     password: '',
-    tipo: '', // Tipo: Usuário ou Mercado
+    tipo: '',
   });
 
   const navigate = useNavigate();
 
-  // Função para alterar o estado conforme o botão clicado
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Função para atualizar o tipo (usuario ou mercado)
+
   const handleTipoChange = (tipo) => {
     setFormData((prev) => ({ ...prev, tipo }));
   };
 
-  // Envio do formulário
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verifique se o tipo foi selecionado corretamente
+
     if (!formData.tipo) {
       return alert('Por favor, selecione um tipo de conta (Usuário ou Mercado).');
     }
 
-    console.log("Form Data:", formData); // Verifique o conteúdo de formData
+    console.log("Form Data:", formData);
 
     try {
       const response = await fetch('http://localhost:8000/cadastro', {
@@ -44,7 +44,7 @@ function Cadastro() {
       const data = await response.json();
       if (response.ok) {
         alert(data.message);
-        navigate('/login'); // Redireciona para login após cadastro
+        navigate('/login');
       } else {
         alert(data.error || 'Erro ao cadastrar');
       }
@@ -93,12 +93,12 @@ function Cadastro() {
           />
         </div>
 
-        {/* Botões de tipo (Usuário ou Mercado) */}
         <div className="tipo-container">
           <button
             type="button"
             className={`tipo-button ${formData.tipo === 'usuario' ? 'selected' : ''}`}
             onClick={() => handleTipoChange('usuario')}
+            title="Escolha esta opção se você é um usuário"
           >
             Usuário
           </button>
@@ -106,13 +106,14 @@ function Cadastro() {
             type="button"
             className={`tipo-button ${formData.tipo === 'mercado' ? 'selected' : ''}`}
             onClick={() => handleTipoChange('mercado')}
+            title="Escolha esta opção se você deseja acessar a área de mercado"
           >
             Mercado
           </button>
         </div>
 
         <div className="button-group">
-          <button type="submit">Cadastrar</button>
+          <button type="submit">Cadastre-se</button>
         </div>
       </form>
       <p>Já tem uma conta? <a href="/login">Faça login</a></p>

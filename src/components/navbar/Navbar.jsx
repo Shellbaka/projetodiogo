@@ -32,7 +32,7 @@ export default function Navbar() {
               Login
             </NavLink>
           </li>
-          {/* Exibir informações do usuário ou mercado se estiver logado */}
+
           {user && (
             <li className="navbar-item">
               <span className="navbar-link">

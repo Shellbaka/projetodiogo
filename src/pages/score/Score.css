@@ -1,10 +1,42 @@
 .Score {
-    background-color: #f4f4f9;
+    background-color: #ffffff;
     padding: 20px;
     max-width: 600px;
-    margin: 0 auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.4s ease, transform 0.3s ease;
+}
+
+.Score:hover {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+.Score h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 25px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    position: relative;
+}
+
+.Score h2::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 3px;
+    background: linear-gradient(90deg, #4CAF50, #388E3C);
+    margin: 10px auto 0;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+.Score h2:hover::after {
+    width: 100%;
 }
 
 .Score ul {
@@ -17,27 +49,65 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fff;
-    margin-bottom: 10px;
-    padding: 15px 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, #f9f9f9, #ffffff);
+    margin-bottom: 15px;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border 0.4s ease;
 }
 
 .Score li:hover {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(135deg, #e0f7fa, #ffffff);
+    border: 2px solid #4CAF50;
 }
 
 .Score .item {
-    font-size: 1.2em;
-    color: #000000;
+    font-size: 1.3em;
+    color: #333;
     font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.5px;
 }
 
 .Score .pontos {
-    background-color: #4CAF50;
+    background: linear-gradient(135deg, #4CAF50, #81C784);
     color: white;
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-size: 1em;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.Score .pontos:hover {
+    background: linear-gradient(135deg, #388E3C, #66BB6A);
+    transform: scale(1.15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .Score {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    .Score h2 {
+        font-size: 1.5em;
+    }
+
+    .Score li {
+        padding: 15px 20px;
+    }
+
+    .Score .item {
+        font-size: 1.1em;
+    }
+
+    .Score .pontos {
+        font-size: 1em;
+    }
 }

@@ -1,19 +1,49 @@
-footer{ 
-    border-radius: 10px;
-    background-color: #FFFFFF;
-    padding: 20px;
-    text-align: center;
-    color: white;
-    position: sticky;
-    margin-top: 300px;
-    color: black;
+footer {
+  border-radius: 12px;
+  background-color: #fff;
+  padding: 30px 50px;
+  text-align: center;
+  color: black;
+  position: relative;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
 }
 
-.imagens img {
-    margin-right: 20px;
-    border-radius: 10px;
-    max-width: 90%; 
-    height: auto;
+footer p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #333;
 }
 
-/*#343A40*/
+footer a {
+  margin: 0 15px;
+}
+
+footer a img {
+  max-width: 50px;
+  height: auto;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+footer a:hover img {
+  transform: scale(1.2);
+  opacity: 0.8;
+}
+
+footer a:focus img {
+  outline: none;
+  transform: scale(1.2);
+}
+
+.imagens {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+}
+
+footer a:active img {
+  transform: scale(1);
+}
